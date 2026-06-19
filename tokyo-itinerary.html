@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo Itinerary: 5-Day Master Plan</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Modern-Retro Japanese Color Palette */
+            --bg-color: #fdfbf7; /* Warm cream/linen */
+            --primary: #C8102E; /* High-impact Crimson */
+            --text-main: #1D232A; /* Midnight Indigo/Charcoal */
+            --text-muted: #4a5568;
+            --accent-yellow: #f2c94c; /* Warm Ochre */
+            --accent-pink: #ffb7b2; /* Cherry Blossom Pink */
+            --fork-bg: #d0e8f2; /* Sky-blue/Mint from retro poster */
+            --fork-border: #1D232A;
+            --card-bg: #ffffff;
+            
+            /* Ukiyo-e / Woodblock Graphic Shadows */
+            --block-shadow: 6px 6px 0px var(--text-main);
+            --block-shadow-hover: 8px 8px 0px var(--text-main);
+            --transition-spring: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--text-muted) 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-main);
+            margin-top: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px rgba(29, 35, 42, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Tabs Styling - Fluid & Premium */
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            background: var(--card-bg);
+            border: 2px solid var(--text-main);
+            box-shadow: var(--block-shadow);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            background: none;
+            border: none;
+            border-right: 2px solid var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s var(--transition-spring);
+            min-width: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn small {
+            display: block;
+            font-weight: 500;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--accent-yellow);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            color: var(--card-bg);
+            background-color: var(--text-main);
+        }
+
+        /* Content Styling & Hardware Accelerated Animations */
+        .tab-content {
+            display: none;
+            perspective: 1000px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideFadeIn 0.7s var(--transition-spring) forwards;
+        }
+
+        @keyframes slideFadeIn {
+            0% { 
+                opacity: 0; 
+                transform: translateY(30px) rotateX(5deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) rotateX(0); 
+            }
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            padding-bottom: 50px;
+        }
+
+        /* Mini Framed Art Blocks (Stops) */
+        .stop {
+            background: var(--card-bg);
+            border: 2px solid var(--text-main);
+            padding: 25px;
+            box-shadow: var(--block-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: transform 0.3s var(--transition-spring), box-shadow 0.3s var(--transition-spring);
+            will-change: transform;
+        }
+
+        .stop:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: var(--block-shadow-hover);
+        }
+
+        .stop-info {
+            width: 100%;
+        }
+
+        .stop-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stop-info h3::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary);
+            border: 2px solid var(--text-main);
+            border-radius: 50%;
+        }
+
+        .stop-info p {
+            margin: 0 0 15px 0;
+            font-size: 1.05rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--text-main);
+            color: var(--card-bg);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        /* Map Embeds - Modern Vintage Integration */
+        .map-thumbnail {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 2px solid var(--text-main);
+            background-color: var(--accent-pink);
+            position: relative;
+            filter: grayscale(15%) contrast(105%) sepia(10%);
+            transition: filter 0.4s var(--transition-spring);
+        }
+
+        .map-thumbnail:hover {
+            filter: none;
+        }
+
+        .map-thumbnail iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Fork in the Road / Options Styling */
+        .fork {
+            background: var(--fork-bg);
+            border: 2px solid var(--text-main);
+            padding: 25px;
+            box-shadow: var(--block-shadow);
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .fork::before {
+            content: '🔀';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--primary);
+            border: 2px solid var(--text-main);
+            padding: 5px;
+            font-size: 1.2rem;
+            box-shadow: 3px 3px 0px var(--text-main);
+            transform: rotate(-10deg);
+        }
+
+        .fork-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            margin-left: 15px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .option-card {
+            background: var(--card-bg);
+            border: 2px solid var(--text-main);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s var(--transition-spring), box-shadow 0.3s var(--transition-spring);
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 4px 4px 0px var(--primary);
+            border-color: var(--primary);
+        }
+
+        .option-card h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .option-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .tabs { flex-direction: column; }
+            .tab-btn { border-right: none; border-bottom: 2px solid var(--text-main); }
+            .tab-btn:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tokyo Master Itinerary</h1>
+    <div class="subtitle">Culture, Coffee, Cuisine & Yomiuri Giants</div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1<br><small>Shinjuku/Shibuya</small></button>
+        <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2<br><small>Subcultures</small></button>
+        <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3<br><small>Coastal Escape</small></button>
+        <button class="tab-btn" onclick="openTab(event, 'day4')">Day 4<br><small>Market & Steel</small></button>
+        <button class="tab-btn" onclick="openTab(event, 'day5')">Day 5<br><small>Game Day</small></button>
+    </div>
+
+    <div id="day1" class="tab-content active">
+        <div class="timeline">
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Nature & Culture</span>
+                    <h3>Meiji Jingu & Yoyogi Park</h3>
+                    <p>Serene sunrise walk through towering trees and the grand shrine complex.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Meiji+Jingu,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Breakfast & Coffee</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>i2 cafe</h4>
+                        <p>Sit-down Aoyama dining in a stylish environment.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=i2+cafe,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Camelback</h4>
+                        <p>Incredible elite egg sandwiches and espresso.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Camelback+sandwich+espresso,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Coffee Supreme</h4>
+                        <p>Kiwi-style coffee with great rooftop toast.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Coffee+Supreme,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining (Cafe)</span>
+                    <h3>KOFFEE MAMEYA</h3>
+                    <p>Elite, minimalist coffee bean boutique offering personalized barista taste consultations.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=KOFFEE+MAMEYA+Omotesando,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Shopping</span>
+                    <h3>Takeshita Street</h3>
+                    <p>Vibrant youth culture boutiques and famous mid-morning sweet crepes.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Takeshita+Street,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Lunch</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Gyukatsu Motomura</h4>
+                        <p>DIY searing beef cutlets on your own personal hot stone.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Gyukatsu+Motomura+Shibuya,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Uobei</h4>
+                        <p>High-speed bullet train sushi. Fast, fun, and delicious.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Uobei+Shibuya+Dogenzaka,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Walking & Shopping</span>
+                    <h3>Cat Street</h3>
+                    <p>Pedestrian-only, tree-lined backstreet known for upscale streetwear.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Cat+Street+Shibuya,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Attraction & Shopping</span>
+                    <h3>Shibuya Crossing & Loft</h3>
+                    <p>The iconic pedestrian scramble, followed by massive multi-story premier stationery shopping.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Shibuya+Crossing,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining (Cafe)</span>
+                    <h3>Brewman Tokyo</h3>
+                    <p>Sleek, workshop-style coffee stand run by a Japan Brewers Cup champion.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Brewman+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Nature</span>
+                    <h3>Shinjuku Gyoen Garden</h3>
+                    <p>Stunning, massive national garden featuring traditional Japanese landscapes.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Shinjuku+Gyoen+National+Garden,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Attraction</span>
+                    <h3>Tokyo Metro Building</h3>
+                    <p>Free observation decks offering stunning sunset views of the metropolis.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Tokyo+Metropolitan+Government+Building,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Sushi Dinner</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Sushi Bar Nigirite</h4>
+                        <p>Cheap, accessible dry-aged umami sushi. A completely unique flavor profile.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Sushi+Bar+Nigirite+Shinjuku,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Shinjuku Sushi Hatsume</h4>
+                        <p>Beautifully crafted, high-quality premium traditional cuts.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Shinjuku+Sushi+Hatsume,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Nightlife</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Golden Gai</h4>
+                        <p>Dense, atmospheric network of highly-themed micro-bars.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Shinjuku+Golden+Gai,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Omoide Yokocho</h4>
+                        <p>Smoky, nostalgic alleyways packed with yakitori stalls.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Omoide+Yokocho,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="day2" class="tab-content">
+        <div class="timeline">
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Shopping</span>
+                    <h3>MEGA Don Quijote</h3>
+                    <p>Multi-story, 24-hour discount paradise for snacks, gadgets, and souvenirs.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=MEGA+Don+Quijote+Shibuya,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining (Cafe)</span>
+                    <h3>Bear Pond Espresso</h3>
+                    <p>Gritty, cult-favorite espresso counter famous for intense, restricted-batch roasts.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Bear+Pond+Espresso+Shimokitazawa,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Shopping</span>
+                    <h3>Shimokitazawa & Village Vanguard</h3>
+                    <p>Eclectic subculture hub with vintage clothing and novelty shops.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Village+Vanguard+Shimokitazawa,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Culture</span>
+                    <h3>Shofuku-den (Gotokuji Temple)</h3>
+                    <p>Iconic hall featuring thousands of Maneki-neko (beckoning cat) statues.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Gotokuji+Temple,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining (Cafe)</span>
+                    <h3>Onibus Coffee</h3>
+                    <p>Flagship timber coffee shop tucked alongside the passing Nakameguro train tracks.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Onibus+Coffee+Nakameguro,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining</span>
+                    <h3>Henry’s Burger</h3>
+                    <p>Premium, ultra-juicy Wagyu beef smash patties in Daikanyama.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Henrys+Burger+Daikanyama,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Shopping</span>
+                    <h3>Tsutaya Bookstore (T-Site)</h3>
+                    <p>Architectural masterpiece bookstore featuring gorgeous reading lounges.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Daikanyama+T-Site,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Attraction</span>
+                    <h3>Hotel Gajoen Lobby</h3>
+                    <p>Hidden-gem historic luxury hotel with indoor waterfalls and wood carvings.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Hotel+Gajoen+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining & Nightlife</span>
+                    <h3>Ebisu Yokocho</h3>
+                    <p>Roaring, retro indoor alleyway packed with local food stalls and draft beer.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Ebisu+Yokocho,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="day3" class="tab-content">
+        <div class="timeline">
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Nature & Culture</span>
+                    <h3>Hokoku-ji Temple</h3>
+                    <p>A stunningly dense and serene bamboo grove in Kamakura.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Hokokuji+Temple+Kamakura&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">History & Culture</span>
+                    <h3>Great Buddha of Kamakura</h3>
+                    <p>Majestic, monumental outdoor bronze statue standing since 1252.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Great+Buddha+of+Kamakura&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Transit & Sightseeing</span>
+                    <h3>Enoden Line</h3>
+                    <p>Nostalgic retro train weaving past local seaside backyards and beaches.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Enoden+Line+Kamakura&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Culture</span>
+                    <h3>Hetsunomiya Shrine</h3>
+                    <p>Historic pathways and shrines on Enoshima Island.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Hetsunomiya+Shrine+Enoshima&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining</span>
+                    <h3>Enoshima Street Food</h3>
+                    <p>Giant, crispy grilled seafood ricecrackers pressed flat on hot plates.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Enoshima+Shrine+Nakamise+Street&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Attraction</span>
+                    <h3>Enoshima Sea Candle</h3>
+                    <p>Lighthouse offering brilliant panoramic views of Sagami Bay and Mt. Fuji.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Enoshima+Sea+Candle&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Dinner on the way back</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Bullpen (Shinagawa)</h4>
+                        <p>Approachable, modern omakase. Flawless technique with a fun, beer-drinking baseball theme.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Bullpen+Sushi+Shinagawa,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Island Izakaya</h4>
+                        <p>Stay on the coast for traditional dinner featuring fresh local shirasu (whitebait) seafood.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Enoshima+Izakaya&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="day4" class="tab-content">
+        <div class="timeline">
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining</span>
+                    <h3>Tsukiji Outer Market</h3>
+                    <p>Bustling morning market for incredible seafood breakfast stalls and street food.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Tsukiji+Outer+Market,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining (Matcha)</span>
+                    <h3>Matcha Stand Maruni</h3>
+                    <p>Vibrant market stand featuring fresh-whisked premium green tea and matcha lattes.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Matcha+Stand+Maruni+Tsukiji,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Shopping</span>
+                    <h3>Kappabashi Street</h3>
+                    <p>Tokyo's legendary wholesale kitchenware district for elite chef knives and ceramics.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Kappabashi+Dougu+Street,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Sushi Lunch Hack</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Bentenyama Miyako</h4>
+                        <p>A historic fifth-generation shop from 1866. Essential, traditional "Edomae" experience.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Bentenyama+Miyako+Sushi+Asakusa,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Sushi Keita</h4>
+                        <p>Michelin-starred Tsukiji powerhouse. Top-tier artisan craft for a lunch-menu steal.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Sushi+Keita+Tsukiji,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">History & Shopping</span>
+                    <h3>Asakusa Underground Street</h3>
+                    <p>Gritty, 1950s aesthetic surviving subterranean shopping arcade.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Asakusa+Underground+Street,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Sightseeing</span>
+                    <h3>Sumida River Walk</h3>
+                    <p>Beautiful riverside walking path with unparalleled views of Tokyo Skytree.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Sumida+River+Walk,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Transit & Sightseeing</span>
+                    <h3>Yurikamome Monorail</h3>
+                    <p>Automated, driverless monorail traversing the Rainbow Bridge.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Yurikamome+Line+Shimbashi,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Interactive Exhibit</span>
+                    <h3>Tokyo Rinkai Disaster Park</h3>
+                    <p>Immersive earthquake experience center with a 72-hour survival simulation.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Tokyo+Rinkai+Disaster+Prevention+Park,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Attraction</span>
+                    <h3>Unicorn Gundam & Statue of Liberty</h3>
+                    <p>Massive life-sized transforming robot statue and waterfront replica.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Unicorn+Gundam+Statue+Odaiba,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining</span>
+                    <h3>Takoyaki Foodcourt</h3>
+                    <p>A flight of octopus balls from famous regional vendors with skyline views.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Odaiba+Takoyaki+Museum,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Dinner near Shimbashi/Ginza</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Tachiguizushi Akira</h4>
+                        <p>Pioneer of premium standing sushi. High-end cuts without the seat cost.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Tachiguizushi+Akira+Shinbashi,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Nemuro Hanamaru</h4>
+                        <p>Ultimate high-energy conveyor belt sushi featuring fresh Hokkaido catches.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Nemuro+Hanamaru+Ginza,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Sushi Dan</h4>
+                        <p>Modern Ginza omakase. Elite sourcing in a relaxed environment.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Sushi+Dan+Ginza,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="day5" class="tab-content">
+        <div class="timeline">
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining (Cafe)</span>
+                    <h3>Glitch Coffee & Roasters</h3>
+                    <p>World-class single-origin coffee flights with personalized consultations.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Glitch+Coffee+Roasters+Jimbocho,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Nature</span>
+                    <h3>Rikugien Gardens</h3>
+                    <p>Classic, breathtaking Japanese strolling garden built around a central pond.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Rikugien+Gardens,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Culture</span>
+                    <h3>Nezu Shrine</h3>
+                    <p>Hillside paths featuring peaceful, photogenic tunnels of small red torii gates.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Nezu+Shrine,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fork">
+                <div class="fork-header">Choose Your Adventure: Elite Sushi Lunch</div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4>Manten Sushi</h4>
+                        <p>Tokyo's ultimate budget omakase champion. Insane value.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Manten+Sushi+Marunouchi,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4>Ginza Iwa</h4>
+                        <p>A welcoming luxury counter. Safest bet for dipping into Ginza's high-end scene.</p>
+                        <div class="map-thumbnail">
+                            <iframe src="https://maps.google.com/maps?q=Ginza+Iwa,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Event & Sports</span>
+                    <h3>Tokyo Dome</h3>
+                    <p>Live baseball game (Yomiuri Giants vs. Hanshin Tigers) featuring legendary, synchronized stadium chanting.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Tokyo+Dome,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stop">
+                <div class="stop-info">
+                    <span class="tag">Dining & Nightlife</span>
+                    <h3>Suidobashi City Area</h3>
+                    <p>Post-game celebrations at lively local yakitori joints and craft beer bars.</p>
+                    <div class="map-thumbnail">
+                        <iframe src="https://maps.google.com/maps?q=Suidobashi+Station,+Tokyo&output=embed" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openTab(evt, dayName) {
+    var i, tabcontent, tablinks;
+    
+    // Hide all tab contents and remove active class
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        // We set display to none so the DOM reflows cleanly, 
+        // the active class triggers the CSS animation.
+        tabcontent[i].style.display = "none";
+        tabcontent[i].classList.remove("active");
+    }
+    
+    // Remove active class from all tab buttons
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+    
+    // Show current tab, add active class to trigger the rotateX/slide animation
+    document.getElementById(dayName).style.display = "block";
+    
+    // Small timeout ensures display block registers before adding the active class for animation
+    setTimeout(function() {
+        document.getElementById(dayName).classList.add("active");
+    }, 10);
+    
+    evt.currentTarget.classList.add("active");
+}
+</script>
+
+</body>
+</html>
